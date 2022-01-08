@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" sizes="28x128" href="data/favicon.png">
+<link rel="icon" type="image/png" href="data/favicon.png">
+<meta property="og:image" content="data/favicon.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<title>Calories</title> 
+</head> 
+
+<body onload="init()">
+<table>
+<tr><td style="width:32px"><img src="data/icon.png"></td><td><h3>Calcul des calories suivant une activité physique</h3></td></tr>
+</table>
+<hr class="blueLine"/>
+
+<p><b><i>Informations</i></b></p>
+
+<p>
+<table class="formTable">
+<tr><td width="100px">Taille *</td><td><input type="number" id="height" required/></td><td>cm</td></tr>
+<tr><td width="100px">Poids *</td><td><input type="number" id="weight" required/></td><td>kg</td></tr>
+<tr><td width="100px">Âge *</td><td><input type="number" id="age" required/></td><td>ans</td></tr>
+<tr>
+<td width="100px">Sexe *</td>
+<td>
+	<select id="sex" style="max-width:100px">
+		<option value="F">Femme</option>
+		<option value="M">Homme</option>
+	</select>
+</td>
+</tr>
+</table>  
+</p>
+
+<p><b><i>Activité</i></b></p>
+
+<p>
+<table class="formTable">
+<tr><td width="100px">MET *</td><td><input type="number" id="met" value="9" step="0.1" required/></td></tr>
+<tr><td width="100px">Durée</td><td><input type="number" id="duration"/></td><td>minutes</td></tr>
+<tr><td width="100px">Objectif</td><td><input type="number" id="target_kcal"/></td><td>kcal</td></tr>
+</table>
+<small><i>* valeurs obligatoires</i></small>  
+</p>
+
+<p>
+<a href="javascript:process()" class="appButton">Calculer</a>
+<a href="javascript:initSettings()" class="appButton">Réinitialiser<a>
+</p>
+
+<p>
+<div id="result"></div>
+</p>
+
+<hr class="blueLine"/>
+
+<div class="smallText">
+<p>
+<h3>Explications</h3>
+</p>
+
+<p>
+La valeur MET (Metabolic Equivalent of Task) est une estimation de l'énergie dépensée par une personne suivant une activité. Différentes valeurs ont été calculées selon les sports, les travaux... Plus la valeur MET est élevée, plus l'effort à fournir est intense. 
+</p>
+
+<p>
+Quelques exemples :  
+<ul>
+<li><b>MET = 2</b> en marchant à la maison</li>
+<li><b>MET = 3</b> en marchant à 4 km/h à plat</li>
+<li><b>MET = 4,3</b> pour la marche à 5,5 km/h à plat</li>
+<li><b>MET = 6</b> en courant à 6,5 km/h</li>
+<li><b>MET = 7</b> pour le jogging en général</li> 
+<li><b>MET = 8,3</b> en courant à 8 km/h</li>
+<li><b>MET = 9</b> en courant à 8,4 km/h</li>
+<li><b>MET = 11,5</b> en courant à 12 km/h</li>
+<li><b>MET = 12,8</b> en courant à 14,5 km/h</li>
+<li><b>MET = 14,5</b> en courant à 16 km/h</li>
+</ul>
+</p>
+
+<p>
+On trouve ces valeurs sur Internet et dans des livres pour différentes activités (avec des valeurs parfois légèrement différentes suivant la source). Le site "Compendium of Physical Activities" comprend de nombreuses valeurs comme les tâches ménagères, les sports...
+</p>
+
+<p>
+Maintenant que l'on a l'estimation de l'intensité d'une activité, il faut calculer le métabolisme de base (MB) d'une personne. De manière simplifiée, il s'agit des besoins énergétiques de base du corps. 
+</p>
+
+<p>
+Une des formules est :
+<ul>
+<li><i>Pour une femme : <b>(9,740 x poids en kg) + (172,9 x taille en m) - (4,737 x age) + 667,051</b></i></li>
+<li><i>Pour un homme : <b>(13,707 x poids en kg) + (492,3 x taille en m) - (6,673 x age) + 77,607</b></i></li>
+</ul>
+</p>
+
+<p>
+Le résultat du MB est exprimé en Calories (kcal). 
+</p>
+
+<p>
+Il faut alors multiplier la valeur MET par le métabolisme de base et on obtient ainsi l'énergie totale dépensée. En divisant par 24, on aura donc le nombre estimé de calories dépensées en une heure d'exercice. De la même façon on pourrait estimer l'énergie dépensée en une minute en divisant par 1440. 
+</p>
+
+<p>
+Pour savoir combien de minutes effectuer cette activité pour dépenser un certain nombre de calories on peut donc faire :
+</p>
+
+<p>
+<i>(objectif kcal)/((mb*met)/1440)</i>
+</p>
+
+<p>
+La valeur du métabolisme de base est également utilisée pour estimer les besoins caloriques journaliers d'une personne suivant son profil, on multiplie alors le MB par un certain nombre :
+<ul>
+<li>1,37 : personne sédentaire</li>
+<li>1,55 : personne active</li>
+<li>1,8 à 2 : personne sportive</li>
+</ul> 
+</p>
+
+<p>
+Sources<br/> 
+<a href="https://sites.google.com/site/compendiumofphysicalactivities/">Compendium Of Physical Activities</a><br/>
+<a href="https://fr.wikipedia.org/wiki/%C3%89quivalent_m%C3%A9tabolique">Équivalent métabolique</a><br/>
+<a href="https://fr.wikipedia.org/wiki/M%C3%A9tabolisme_de_base">Métabolisme de base</a><br/>
+</p>
+<p>
+<a href="met.py">Code source simplifié (Python)</a>
+</p>
+</div>
+
+<script type="text/javascript" src="js/resources.fr.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+<p style="text-align:center">
+Rocco Pascale
+</p>
+</body> 
+</html>
