@@ -1,7 +1,12 @@
+:root {
+    color-scheme: dark;
+}
+
 html, body 
 { 
 font-family:Verdana;
-background-color: #eeeeee;
+background-color: #141414;
+color: #ffffff;
 }
 
 table
@@ -27,15 +32,17 @@ table
 	border:1px solid #006496;
 }
 
-input[type=text], input[type=email], input[type=number], select, textarea
+input[type=text], input[type=number], select, textarea
 {
   width: 100%;
   max-width:100px;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #c0c0c0;
   border-radius: 4px;
   box-sizing: border-box;
   resize: vertical;
+  background-color: #323232;
+  color: #eeeeee;
 }
 
 
